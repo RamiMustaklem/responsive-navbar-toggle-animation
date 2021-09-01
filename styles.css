@@ -44,7 +44,9 @@ header {
 }
 
 .nav-toggle:focus ~ .nav-toggle-label {
-    outline: 3px solid rgba(173, 216, 230, 0.75);
+    /*outline: 3px solid rgba(173, 216, 230, 0.75);*/
+    outline: none;
+    cursor: pointer;
 }
 
 .nav-toggle-label {
@@ -55,6 +57,8 @@ header {
     height: 100%;
     display: flex;
     align-items: center;
+    outline: none;
+    cursor: pointer;
 }
 
 .nav-toggle-label span,
@@ -66,6 +70,27 @@ header {
     width: 2em;
     border-radius: 2px;
     position: relative;
+    transition: transform ease-in-out 500ms, opacity ease-in-out 500ms;
+}
+
+.nav-toggle ~ .nav-toggle-label span::before {
+    transform: translateY(-3px);
+}
+
+.nav-toggle ~ .nav-toggle-label span::after {
+    transform: translateY(3px);
+}
+
+.nav-toggle:checked ~ .nav-toggle-label span {
+    transform: rotate(45deg);
+}
+
+.nav-toggle:checked ~ .nav-toggle-label span::before {
+    opacity: 0;
+}
+
+.nav-toggle:checked ~ .nav-toggle-label span::after {
+    transform: translateY(-6px) rotate(90deg);
 }
 
 .nav-toggle-label span::before,
@@ -91,7 +116,8 @@ nav {
     width: 100%;
     transform: scale(1, 0);
     transform-origin: top;
-    transition: transform 400ms ease-in-out;
+    transition: transform 400ms ease-in-out, clip-path ease-in-out 700ms;
+    clip-path: circle(0px at top left);
 }
 
 nav ul {
@@ -120,6 +146,7 @@ nav a:hover {
 
 .nav-toggle:checked ~ nav {
     transform: scale(1,1);
+    clip-path: circle(250% at top left);
 }
 
 .nav-toggle:checked ~ nav a {
@@ -142,7 +169,7 @@ nav a:hover {
     }
 
     nav {
-    /*// all: unset; !* this causes issues with Edge, since it's unsupported *!*/
+        all: unset; /* this causes issues with Edge, since it's unsupported */
 
         /* the following lines are not from my video, but add Edge support */
         position: relative;
@@ -158,6 +185,8 @@ nav a:hover {
         display: flex;
         justify-content: flex-end;
         align-items: center;
+
+        clip-path: initial;
     }
 
     nav ul {
